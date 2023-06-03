@@ -16,9 +16,9 @@ import {
   mdiRotateLeftVariant,
   mdiDoctor,
   mdiStethoscope,
-mdiGridLarge,
-mdiAlienOutline,
-mdiVirusOffOutline
+  mdiGridLarge,
+  mdiAlienOutline,
+  mdiVirusOffOutline
 } from '@mdi/js'
 
 import { Home, } from 'lucide-vue-next';
@@ -31,7 +31,7 @@ import { aliases, mdi } from 'vuetify/iconsets/mdi'
   let infoUser =ref({})
   let isLoading = ref(true)
 
-  const config = {
+const config = {
   headers:{
     Authorization: 'Bearer ' + localStorage.getItem('token'),    
   }
@@ -57,7 +57,15 @@ onMounted(() => {
 <template>
   
   <v-container>
-    <v-layout>
+    <center class="ma-16" v-if="isLoading">
+      <v-progress-circular 
+        indeterminate 
+        :size="67" 
+        :width="6" 
+      >
+      </v-progress-circular>
+    </center>
+    <v-layout v-else>
       <v-navigation-drawer
       v-model="drawer"
       :rail="rail"
@@ -90,15 +98,7 @@ onMounted(() => {
         </template>
       </v-navigation-drawer>
       <v-main>
-        <center class="ma-16" v-if="isLoading">
-          <v-progress-circular 
-            indeterminate 
-            :size="67" 
-            :width="6" 
-          >
-          </v-progress-circular>
-        </center>
-        <div v-else> 
+        <div> 
           <!-- <div class="pa-4 text-end">
             <RouterLink to="/protected-page/service">
               <v-btn

@@ -31,7 +31,12 @@ const router = createRouter({
       component: () => import("../views/CarersListe.vue")
     },
     {
-      path: '/protected-page/patients/add',
+      path: '/protected-page/carers/add-carer',
+      name: 'addCarer',
+      component: () => import("../views/AddCarers.vue")
+    },
+    {
+      path: '/protected-page/patients/add-patient',
       name: 'addPatient',
       component: () => import("../views/InscriptionPatient.vue")
     }

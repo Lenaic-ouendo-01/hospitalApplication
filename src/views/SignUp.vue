@@ -26,7 +26,9 @@ import { mdiLockOutline, mdiEye, mdiEyeOff, mdiArrowLeft } from '@mdi/js'
   let name=ref("")
   let email=ref("")
   let password=ref("")
+  let role=ref("Directeur")
   let router=useRouter()
+  let items = ref(["Directeur", "Medecin", "Patient"])
 
   function onSubmit(){
     console.log(name.value, email.value, password.value)
@@ -34,7 +36,8 @@ import { mdiLockOutline, mdiEye, mdiEyeOff, mdiArrowLeft } from '@mdi/js'
     .post("http://127.0.0.1:8000/api/register",{
       "name":  name.value,
       "password": password.value,
-      "email": email.value
+      "email": email.value,
+      "role": role.value
     })
     .then(
       (response) =>{
@@ -115,6 +118,33 @@ import { mdiLockOutline, mdiEye, mdiEyeOff, mdiArrowLeft } from '@mdi/js'
         style="min-height: 96px"
         type="password"
       ></v-text-field>
+      <v-combobox
+        v-model="role"
+        :items="items"
+        label="Rôle"
+        variant="outlined"
+      >
+        <template v-slot:selection="data">
+          <v-chip
+            :key="JSON.stringify(data.item)"
+            v-bind="data.attrs"
+            :model-value="data.selected"
+            :disabled="data.disabled"
+            size="small"
+            @click:close="data.parent.selectItem(data.item)"
+          >
+            <template v-slot:prepend>
+              <v-avatar
+                class="bg-black text-warning text-uppercase"
+                start
+              >
+                {{ data.item.title.slice(0, 1) }}
+              </v-avatar>
+            </template>
+            {{ data.item.title }}
+          </v-chip>
+        </template> 
+      </v-combobox>
       <v-checkbox
         v-model="agreement"
         :rules="[rules.required]"

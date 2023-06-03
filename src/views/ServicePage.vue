@@ -226,6 +226,30 @@ import { aliases, mdi } from 'vuetify/iconsets/mdi'
   }
 };
 
+let nom=ref("")
+let description=ref("")
+let opening_hours=ref("")
+let status=ref("")
+
+function createService(){
+  axios
+  .post("http://127.0.0.1:8000/api/service/create",{
+      "nom": nom.value,
+      "description": description.value,
+      "opening_hours": opening_hours.value,
+      "status": status.value,
+      // "marital_status": marital_status.value
+  },config)
+  .then(
+      (response) =>{
+      console.log(response)
+      // router.push({path: '/protected-page'});
+      
+      }
+  )
+  .catch(error => console.log(error));
+}
+
 </script>
 
 <template>
@@ -265,12 +289,12 @@ import { aliases, mdi } from 'vuetify/iconsets/mdi'
         <v-container fluid class="d-flex justify-center">
           <v-container
             :loading="isUpdating"
-            color="blue-grey-lighten-4"
+            
             class="mx-auto"
             max-width="480"
             center
           >
-            <v-img
+            <!-- <v-img
               cover
               height="200"
               src=""
@@ -287,59 +311,42 @@ import { aliases, mdi } from 'vuetify/iconsets/mdi'
                   </v-col>
                 </v-row>
               </v-row>
-            </v-img>
+            </v-img> -->
           
             <v-form>
               <v-container max-width="300px">
                 <v-row dense>
                   <v-col cols="8">
                     <v-text-field
-                    v-model="name"
+                    v-model="nom"
                     :disabled="isUpdating"
-                    color="blue-grey-lighten-2"
-                    label="Service Name"
+                    label="Nom du service"
                     ></v-text-field>
                   </v-col>
             
                   <v-col cols="8">
                     <v-text-field
-                    v-model="responsable"
+                    v-model="description"
                     :disabled="isUpdating"
-                    color="blue-grey-lighten-2"
-                    label="Responsable "
+                    label="Description "
                     ></v-text-field>
                   </v-col>
-                  
-                  
+
                   <v-col cols="8">
-                    <v-autocomplete
-                      v-model="friends"
+                    <v-text-field
+                      v-model="opening_hours"
                       :disabled="isUpdating"
-                      :items="people"
-                      chips
-                      closable-chips
-                      color="blue-grey-lighten-2"
-                      item-title="name"
-                      item-value="name"
-                      label="Service Selection"
-                      multiple
-                    >
-                      <template v-slot:chip="{ props, item }">
-                        <v-chip
-                          v-bind="props"    
-                        ></v-chip>
-                      </template>
-                      
-                      <template v-slot:item="{ props, item }">
-                        <v-list-item
-                          v-bind="props"
-                          :prepend-avatar="item?.raw?.avatar"
-                          :title="item?.raw?.name"
-                          :subtitle="item?.raw?.group"
-                        ></v-list-item>
-                      </template>
-                    </v-autocomplete>
-                    
+                      label="Heure d'ouverture "
+                      placeholder="xx:xx:xx"
+                    ></v-text-field>
+                  </v-col>
+
+                  <v-col cols="8">
+                    <v-text-field
+                      v-model="status"
+                      :disabled="isUpdating"
+                      label="Statu"
+                    ></v-text-field>
                   </v-col>
       
                 </v-row>
@@ -353,9 +360,8 @@ import { aliases, mdi } from 'vuetify/iconsets/mdi'
               <v-btn
                 :loading="isUpdating"
                 :variant="isUpdating ? 'tonal' : undefined"
-                color="blue-grey-lighten-3"
                 prepend-icon="mdi-update"
-                @click="isUpdating = true"
+                @click="createService"
                 >
                 <RouterLink to="/protected-page" class="route">
                   Create Now

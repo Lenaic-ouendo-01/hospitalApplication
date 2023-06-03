@@ -31,13 +31,13 @@ mdiVirusOffOutline
     <RouterLink to="" class="route">
       <v-list-item :prepend-icon="mdiAccount" title="My Account" value="account"></v-list-item>
     </RouterLink>
-    <RouterLink to="/protected-page/carers" class="route">
+    <RouterLink to="/protected-page/carers/add-carer" class="route">
       <v-list-item :prepend-icon="mdiStethoscope" title="Carers" value="carers"></v-list-item>
     </RouterLink>
     <RouterLink to="/protected-page/service" class="route">
       <v-list-item :prepend-icon="mdiCharity" title="Services" value="service"></v-list-item>
     </RouterLink>
-    <RouterLink to="/protected-page/patients/add" class="route">
+    <RouterLink to="/protected-page/patients/add-patient" class="route">
       <v-list-item :prepend-icon="mdiVirusOffOutline" title="Patients" value="patients"></v-list-item>
     </RouterLink>
     <!-- <RouterLink to="" class="route">
