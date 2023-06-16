@@ -11,55 +11,59 @@ mdiAccountPlus,
   mdiMagnify, 
 } from '@mdi/js'
 import axios from 'axios';
+import { useMeStore } from '../stores/me.store';
+
+onMounted(()=>{
+  listService();
+  authUser.me()
+  console.log(authUser.user.data)
+})
 
 let drawer= ref(true)
 let rail=ref(true)
 let infoUser =ref({})
 let searchValue = ref('')
-let doctors = ref("")
+let services = ref("")
 let dialog=ref(false)
+
+const authUser = useMeStore()
 
 const config = {
   headers:{
     Authorization: 'Bearer ' + localStorage.getItem('token'),    
   }
 };
-onMounted(()=>{
-  listDoctor();
-})
 
-function listDoctor() {
+function listService() {
     axios
-  .get('http://127.0.0.1:8000/api/users', config)
+  .get('http://127.0.0.1:8000/api/services', config)
   .then(
     (reponse) => {
-      doctors.value = reponse.data.data
-      console.log(doctors.value)
+      services.value = reponse.data.data
+      console.log(services.value)
     }
   )
   .catch(erreur => console.log(erreur));
 }
 
-let sup=ref("")
-function deleteDoctor(doctorId) {
+function deleteService(serviceId) {
     axios
-      .delete('http://127.0.0.1:8000/api/users/' + doctorId, config)
-      .then(res => console.log(res))
+      .delete('http://127.0.0.1:8000/api/users/' + serviceId, config)
       .catch(erreur => console.log(erreur));
 }
 
 // function search(){
-//     if(searchValue.value.trim().length > 0) {
-//       axios
-//         .get('https://restcountries.com/v3.1/name/' + searchValue.value)
-//         .then(
-//           (reponse) => {
-//             pays.value = reponse.data
-//             console.log(pays.value)
-//           }
-//         )
-//     }
+//   if(searchValue.value.trim().length > 0) {
+//     axios
+//       .get('https://restcountries.com/v3.1/name/' + searchValue.value)
+//       .then(
+//         (reponse) => {
+//           pays.value = reponse.data
+//           console.log(pays.value)
+//         }
+//       )
 //   }
+// }
   
 </script>
 <template>
@@ -100,11 +104,11 @@ function deleteDoctor(doctorId) {
           <v-icon icon="mdi" color="primary"/>
           <v-text-field
             :prepend-icon="mdiMagnify" 
-            label="Rechercher un médecin..." 
+            label="Rechercher un service..." 
             v-model="searchValue" 
             @keyup.enter="search"
           ></v-text-field>
-          <button @click="listDoctor" v-show="searchValue.trim().length > 0" id="but">Réinitialiser</button>
+          <button @click="listService" v-show="searchValue.trim().length > 0" id="but">Réinitialiser</button>
         </div>
         <v-table
           fixed-header
@@ -115,68 +119,68 @@ function deleteDoctor(doctorId) {
                 Nom
               </th>
               <th class="text-left">
-                Email
+                Description
               </th>
               <th class="text-left">
-                Contact
+                Horaire
               </th>
               <th class="text-left">
-                Sexe
+                Status
               </th>
-              <th class="text-left">
-                Langue
-              </th>
-              <th class="text-left">
-                Nationalité
-              </th>
-              <th class="text-left">
-                Date de naissance
+              <th class="text-center">
+                Action
               </th>
             </tr>
-            <v-btn
+            
+          </thead>
+          <tbody>
+            <v-alert
+              border="start"
+              border-color="deep-purple accent-4"
+              elevation="2"
+            >
+              <v-btn
                 :prepend-icon="mdiAccountPlus"
                 @click="createService"
                 >
-                <RouterLink to="/protected-page/carers/add-carer" class="route">
+                <RouterLink to="/protected-page/services/add-service" class="route">
                   Ajouter 
                 </RouterLink>
               </v-btn>
-          </thead>
-          <tbody>
+            </v-alert>
+
             <tr
-              v-for="(doctor, index) in doctors"
+              v-for="(service, index) in services"
               :key="index"
             >
-              <td>{{ doctor.name }}</td>
-              <td>{{ doctor.email }}</td>
-              <td>{{ doctor.phoneNumber }}</td>
-              <td>{{ doctor.sex }}</td>
-              <td>{{ doctor.language }}</td>
-              <td>{{ doctor.nationality }}</td>
-              <td>{{ doctor.birth }}</td>
-              <RouterLink :to="{name: 'editCarer', params:{doctorId: doctor.id}}">
+              <td>{{ service.name }}</td>
+              <td>{{ service.description }}</td>
+              <td>{{ service.opening_hours }}</td>
+              <td>{{ service.status }}</td>
+              <td class="">
+              <RouterLink :to="{name: 'editService', params:{serviceId: service.id}}">
                 <td>
                   <v-btn class="bg-primary">Modifier</v-btn>
                 </td>
               </RouterLink>
-              <!-- <td>
-                <v-btn 
-                  class="bg-red" 
-                  @click="dialog = true"
-                >Supprimer</v-btn>
-                <v-snackbar
-                  v-model="dialog"
+                <td>
+                  <v-btn 
+                    class="bg-red ma-2" 
+                    @click="dialog = true"
+                  >Supprimer</v-btn>
+                  <v-snackbar
+                    v-model="dialog"
                   >
-                  <div class="text-h4 pb-2" :prepend-icon="mdiCarBrakeAlert">Attention</div>
-                  <p>Souhaitez-vous vraiment supprimer ce médecin ?</p>
-                  
-                  <template v-slot:actions>
+                    <div class="text-h4 pb-2" :prepend-icon="mdiCarBrakeAlert">Attention</div>
+                    <p>Souhaitez-vous vraiment supprimer ce service ?</p>
+                    
+                    <template v-slot:actions>
                     
                     <v-btn
                       class="text-danger"
                       color="black.0"
                       variant="text"
-                      @click="deleteDoctor(doctor.id), dialog = false"
+                      @click="deleteService(service.id), dialog = false"
                     >
                       Oui
                     </v-btn>
@@ -188,9 +192,10 @@ function deleteDoctor(doctorId) {
                     >
                       Fermer
                     </v-btn>
-                  </template>
-                </v-snackbar>
-              </td> -->
+                    </template>
+                  </v-snackbar>
+                </td>
+              </td>
             </tr>
           </tbody>
         </v-table>

@@ -73,7 +73,7 @@ onMounted(() => {
       @click="rail = false"
       >
         <v-list-item 
-          prepend-avatar="https://randomuser.me/api/portraits/women/94.jpg"
+          prepend-avatar="https://scontent-lis1-1.xx.fbcdn.net/v/t1.6435-9/116822065_980948495679776_9093214250912544364_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=174925&_nc_ohc=NQIzTHWQDQoAX9_kjoj&_nc_ht=scontent-lis1-1.xx&oh=00_AfA2b-cSCf9ZMsEXWYZe4a2Px2aNvOllFAnSH4wvg-3dZA&oe=64AFB9F6"
           :title="infoUser.name"
           nav
           >
@@ -168,7 +168,7 @@ onMounted(() => {
                   Carers
                 </v-card-title>
                 <v-card-text class="ma-4 text-h5">
-                  Consult the list of caregivers now. You can put it on 
+                  Consultez la liste des médecins de votre centre hospitalier. Enregistrez et modifiez plus rapidement et simplement You can put it on 
                   up to date in a simple and fast way.
                 </v-card-text>
                 <div class="pa-4 text-center">

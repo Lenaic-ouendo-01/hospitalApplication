@@ -16,8 +16,8 @@ const router = createRouter({
       component: () => import("../views/ProtectedPage.vue")
     },
     {
-      path: '/protected-page/service',
-      name: 'service',
+      path: '/protected-page/services/add-service',
+      name: 'addService',
       component: () => import("../views/ServicePage.vue")
     },
     {
@@ -31,10 +31,26 @@ const router = createRouter({
       component: () => import("../views/CarersListe.vue")
     },
     {
+      path: '/protected-page/carers/edit/:doctorId',
+      name: 'editCarer',
+      component: () => import("../views/EditCarer.vue")
+    },
+    {
+      path: '/protected-page/service/edit/:serviceId',
+      name: 'editService',
+      component: () => import("../views/EditService.vue")
+    },
+    {
+      path: '/protected-page/services',
+      name: 'services',
+      component: () => import("../views/ServiceListe.vue")
+    },
+    {
       path: '/protected-page/carers/add-carer',
       name: 'addCarer',
       component: () => import("../views/AddCarers.vue")
     },
+   
     {
       path: '/protected-page/patients/add-patient',
       name: 'addPatient',

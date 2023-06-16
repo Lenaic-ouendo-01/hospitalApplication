@@ -41,25 +41,25 @@ let rules = ref ({
         return pattern.test(value) || 'Invalid e-mail.'
     },
 });
-let number = ref("")
+let phoneNumber = ref("+229 ")
 let birth = ref("")
 let sex = ref("Masculin")
 let nationality = ref("")
-let language  = ref("")
+// let language  = ref("")
 let email = ref("")
-let password = ref("Random")
+let password = ref("Anvb@DEflqg2vh3M")
 
 function createDoctor(){
     console.log(email.value, password.value)
     axios
-    .post("http://127.0.0.1:8000/api/doctor/create",{
+    .post("http://127.0.0.1:8000/api/users/doctors",{
         "email": email.value,
         "name": name.value,
-        "number": number.value,
+        "phoneNumber": phoneNumber.value,
         "nationality": nationality.value,
         "sex": sex.value,
         "birth": birth.value,
-        "language": language.value,
+        // "language": language.value,
         "password": password.value
         // "marital_status": marital_status.value
     },config)
@@ -86,7 +86,7 @@ function createDoctor(){
         @click="rail = false"
       >
         <v-list-item 
-          prepend-avatar="https://randomuser.me/api/portraits/men/85.jpg"
+          prepend-avatar="https://scontent-lis1-1.xx.fbcdn.net/v/t1.6435-9/116822065_980948495679776_9093214250912544364_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=174925&_nc_ohc=NQIzTHWQDQoAX9_kjoj&_nc_ht=scontent-lis1-1.xx&oh=00_AfA2b-cSCf9ZMsEXWYZe4a2Px2aNvOllFAnSH4wvg-3dZA&oe=64AFB9F6"
           :title="infoUser.name"
           nav
         >
@@ -152,7 +152,7 @@ function createDoctor(){
                   sm="5"
                 >
                     <v-text-field
-                        v-model="number"
+                        v-model="phoneNumber"
                         label="Numéro de téléphone"
                         variant="outlined"
                     ></v-text-field>
@@ -206,7 +206,7 @@ function createDoctor(){
                     
                 </v-col>
                 
-                <v-col
+                <!-- <v-col
                   cols="12"
                   sm="10"
                 >
@@ -215,7 +215,7 @@ function createDoctor(){
                     label="Langue"
                     variant="outlined"
                     ></v-text-field>
-                </v-col>
+                </v-col> -->
                 
                 <v-col 
                   cols="10"

@@ -26,9 +26,7 @@ import { mdiLockOutline, mdiEye, mdiEyeOff, mdiArrowLeft } from '@mdi/js'
   let name=ref("")
   let email=ref("")
   let password=ref("")
-  let role=ref("Directeur")
   let router=useRouter()
-  let items = ref(["Directeur", "Medecin", "Patient"])
 
   function onSubmit(){
     console.log(name.value, email.value, password.value)
@@ -36,8 +34,7 @@ import { mdiLockOutline, mdiEye, mdiEyeOff, mdiArrowLeft } from '@mdi/js'
     .post("http://127.0.0.1:8000/api/register",{
       "name":  name.value,
       "password": password.value,
-      "email": email.value,
-      "role": role.value
+      "email": email.value
     })
     .then(
       (response) =>{
@@ -54,28 +51,27 @@ import { mdiLockOutline, mdiEye, mdiEyeOff, mdiArrowLeft } from '@mdi/js'
 
 <template>
   <v-card
-    class="mx-auto"
+    class="mx-auto ma-16"
     style="max-width: 500px;"
   >
     <v-toolbar
-      color="deep-purple-accent-4"
+      color="teal-lighten-3"
       cards
       dark
       flat
     >
-      <v-btn>
-        <v-icon :icon="mdiArrowLeft"/>
-      </v-btn>
+      <RouterLink to="/">
+        <v-btn>
+          <v-icon :icon="mdiArrowLeft"/>
+        </v-btn>
+      </RouterLink>
+      
       <v-card-title class="text-h6 font-weight-regular">
         Sign up
       </v-card-title>
-      <v-spacer></v-spacer>
-      <v-btn icon>
-        <v-icon>mdi-magnify</v-icon>
-      </v-btn>
-      <v-btn icon>
-        <v-icon>mdi-dots-vertical</v-icon>
-      </v-btn>
+
+      <!-- <v-spacer></v-spacer> -->
+
     </v-toolbar>
     <v-form
       ref="form"
@@ -89,6 +85,7 @@ import { mdiLockOutline, mdiEye, mdiEyeOff, mdiArrowLeft } from '@mdi/js'
         label="Name"
         variant="filled"
       ></v-text-field>
+
       <v-text-field
       v-model="phone"
       :rules="[rules.number]"
@@ -96,6 +93,7 @@ import { mdiLockOutline, mdiEye, mdiEyeOff, mdiArrowLeft } from '@mdi/js'
       color="deep-purple"
       label="Phone number"
       ></v-text-field>
+
       <v-text-field
       v-model="email"
       :rules="[rules.email]"
@@ -104,6 +102,7 @@ import { mdiLockOutline, mdiEye, mdiEyeOff, mdiArrowLeft } from '@mdi/js'
       label="Email address"
       type="email"
       ></v-text-field>
+
       <v-text-field
         v-model="password"
         :rules="[rules.password, rules.length(6)]"
@@ -117,34 +116,8 @@ import { mdiLockOutline, mdiEye, mdiEyeOff, mdiArrowLeft } from '@mdi/js'
         label="Password"
         style="min-height: 96px"
         type="password"
-      ></v-text-field>
-      <v-combobox
-        v-model="role"
-        :items="items"
-        label="Rôle"
-        variant="outlined"
-      >
-        <template v-slot:selection="data">
-          <v-chip
-            :key="JSON.stringify(data.item)"
-            v-bind="data.attrs"
-            :model-value="data.selected"
-            :disabled="data.disabled"
-            size="small"
-            @click:close="data.parent.selectItem(data.item)"
-          >
-            <template v-slot:prepend>
-              <v-avatar
-                class="bg-black text-warning text-uppercase"
-                start
-              >
-                {{ data.item.title.slice(0, 1) }}
-              </v-avatar>
-            </template>
-            {{ data.item.title }}
-          </v-chip>
-        </template> 
-      </v-combobox>
+      ></v-text-field>   
+      
       <v-checkbox
         v-model="agreement"
         :rules="[rules.required]"
@@ -164,7 +137,9 @@ import { mdiLockOutline, mdiEye, mdiEyeOff, mdiArrowLeft } from '@mdi/js'
         </template>
       </v-checkbox>
     </v-form>
+
     <v-divider></v-divider>
+    
     <v-card-actions>
       <v-btn
         variant="text"
@@ -172,7 +147,9 @@ import { mdiLockOutline, mdiEye, mdiEyeOff, mdiArrowLeft } from '@mdi/js'
       >
         Clear
       </v-btn>
+    
       <v-spacer></v-spacer>
+    
       <v-btn
         :disabled="!form"
         :loading="isLoading"
@@ -182,6 +159,7 @@ import { mdiLockOutline, mdiEye, mdiEyeOff, mdiArrowLeft } from '@mdi/js'
         Submit
       </v-btn>
     </v-card-actions>
+    
     <v-dialog
       v-model="dialog"
       max-width="400"
@@ -191,10 +169,13 @@ import { mdiLockOutline, mdiEye, mdiEyeOff, mdiArrowLeft } from '@mdi/js'
         <v-card-title class="text-h5 bg-grey-lighten-3">
           Legal
         </v-card-title>
+    
         <v-card-text>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
         </v-card-text>
+    
         <v-divider></v-divider>
+    
         <v-card-actions>
           <v-btn
             variant="text"
@@ -202,7 +183,9 @@ import { mdiLockOutline, mdiEye, mdiEyeOff, mdiArrowLeft } from '@mdi/js'
           >
             No
           </v-btn>
+    
           <v-spacer></v-spacer>
+    
           <v-btn
             color="deep-purple"
             variant="tonal"

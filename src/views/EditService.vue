@@ -4,38 +4,69 @@ import LogOut from '../components/LogOut.vue'
 import { onMounted, ref } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { RouterLink, RouterView } from 'vue-router'
-import { useMeStore } from '../stores/me.store';
 import { 
   mdiChevronLeft, 
   mdiDoctor, 
 } from '@mdi/js'
 import axios from 'axios';
 
-const authUser = useMeStore()
+onMounted(()=>{
+  service();
+})
 
 const config = {
     headers:{
         Authorization: 'Bearer ' + localStorage.getItem('token'),    
     }
 };
+
 const route = useRoute()
 
-onMounted(()=>{
-    authUser.me()
-    console.log(authUser.user.data)
-})
-
 let form = ref({
-  phoneNumber: '',
-  birth: '',
-  sex: '',
-  nationality: '',
-  email: '',
-  name: '' 
+  name: '',
+  description: '',
+  opening_hours: '',
+  status: ''
 })
-
+let router=useRouter()
 let drawer= ref(true)
 let rail=ref(true)
+
+function service(){
+//   const route = useRoute()
+  axios
+    .get("http://127.0.0.1:8000/api/services/" + route.params.serviceId, config)
+    .then(
+        (response) =>{
+        form.value = response.data.data
+        }
+    )
+    .catch(error => console.log(error));
+}
+
+function editService(){
+//   const route = useRoute()
+  axios
+    .put("http://127.0.0.1:8000/api/services/" + route.params.serviceId, {
+      "name": form.value.name,
+      "description": form.value.description,
+      "opening_hours": form.value.opening_hours,
+      "status": form.value.status
+    }, config)
+    .then(response =>{
+        //Lors que la modification fonctionne
+        console.log(response.data);
+        console.log('Mise à jour des données du service');
+        router.push({path:'/protected-page/services'});
+    })
+    .catch(error =>{
+        console.error('Erreur lors de la mise à jour du service');
+        console.error(error.response.data);
+        console.log(error);
+    });
+
+}
+
 </script>
 
 <template>
@@ -80,7 +111,7 @@ let rail=ref(true)
                 <v-card-text 
                   class="text-center text-h5"
                 >
-                  Modification des informations
+                  Modification des informations 
                 </v-card-text>
               </v-card>
             </v-col>
@@ -91,7 +122,7 @@ let rail=ref(true)
               <v-text-field
                 v-model="form.name"
                 variant="outlined"
-                label="Nom & Prénom"
+                label="Nom"
               ></v-text-field>
             </v-col>
             
@@ -100,11 +131,9 @@ let rail=ref(true)
               sm="10"
             >
               <v-text-field
-                v-model="form.email"
+                v-model="form.description"
                 variant="outlined"
-                :rules="[rules.required, rules.email]"
-                label="Email"
-                readonly
+                label="Description du service"
               ></v-text-field>
             </v-col>
         
@@ -113,9 +142,10 @@ let rail=ref(true)
               sm="5"
             >
               <v-text-field
-                v-model="form.phoneNumber"
+                v-model="form.opening_hours"
                 variant="outlined"
-                label="Numéro de téléphone"
+                label="Horaire"
+                placeholder="xx:xx:xx"
               ></v-text-field>
             </v-col>
         
@@ -124,35 +154,22 @@ let rail=ref(true)
               sm="5"
             >
               <v-text-field
-                v-model="form.sex"
+                v-model="form.status"
                 variant="outlined"
-                label="Sexe"
-                readonly
+                label="Status"
               ></v-text-field>
-            </v-col>
-
-            <v-col 
-              cols="12"
-              sm="10"
-            >
-              <v-text-field
-                v-model="form.nationality"
-                variant="outlined"
-                label="Nationalité"
-              ></v-text-field>
-                
             </v-col>
           </v-row>
         </v-container>
-        <!-- <RouterLink to="/protected-page/carers"> -->
+        <!-- <RouterLink to="/protected-page/services"> -->
           <v-btn
-              :loading="isUpdating"
-              :variant="isUpdating ? 'tonal' : undefined"
-              color="blue-grey-lighten-3"
-              :prepend-icon="mdiUpdate"
-              @click="editDoctor"
+            :loading="isUpdating"
+            :variant="isUpdating ? 'tonal' : undefined"
+            color="blue-grey-lighten-3"
+            :prepend-icon="mdiUpdate"
+            @click="editService"
           >
-              Appliquer
+            Appliquer
           </v-btn>
         <!-- </RouterLink> -->
       </v-main>

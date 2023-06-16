@@ -49,8 +49,8 @@ let name = ref("");
 let number = ref("");
 let birth = ref("");
 let address = ref("");
-let sex = ref("Masculine")
-let items = ref(["Masculine", "Feminine", "Transgender", "Other"])
+let sex = ref("Masculin")
+let items = ref(["Masculin", "Feminin", "Transgenre", "Autre"])
 let password = ref("");
 let profession = ref("");
 let allergies = ref("");
@@ -86,8 +86,8 @@ function createPatient(){
       "password": password.value,
       "email": email.value,
       "name": name.value,
-      "number": number.value,
-      "nation": country.value,
+      "phoneNumber": number.value,
+      "nationality": country.value,
       "sex": sex.value,
       "birth": birth.value,
       "address": address.value,

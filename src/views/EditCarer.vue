@@ -4,38 +4,83 @@ import LogOut from '../components/LogOut.vue'
 import { onMounted, ref } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { RouterLink, RouterView } from 'vue-router'
-import { useMeStore } from '../stores/me.store';
 import { 
   mdiChevronLeft, 
   mdiDoctor, 
 } from '@mdi/js'
 import axios from 'axios';
-
-const authUser = useMeStore()
-
-const config = {
-    headers:{
-        Authorization: 'Bearer ' + localStorage.getItem('token'),    
-    }
-};
-const route = useRoute()
+import router from '../router';
 
 onMounted(()=>{
-    authUser.me()
-    console.log(authUser.user.data)
+  console.log(route.params);
+  doctor();
 })
 
+const config = {
+  headers:{
+    Authorization: 'Bearer ' + localStorage.getItem('token'),    
+  }
+};
+const route = useRoute()
+let router=useRouter()
+
+let rules = ref ({
+  required: value => !!value || 'Required.',
+  counter: value => value.length <= 20 || 'Max 20 characters',
+  email: value => {
+    const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    return pattern.test(value) || 'Invalid e-mail.'
+  },
+});
 let form = ref({
   phoneNumber: '',
   birth: '',
   sex: '',
   nationality: '',
   email: '',
-  name: '' 
+  name: '',
+  language: ''
 })
-
 let drawer= ref(true)
 let rail=ref(true)
+
+function doctor(){
+  // const route = useRoute()
+  axios
+  .get("http://127.0.0.1:8000/api/users/" + route.params.doctorId, config)
+  .then(
+    (response) =>{
+      form.value = response.data.data
+    }
+  )
+  .catch(error => console.log(error));
+}
+
+function editDoctor(){
+  // const route = useRoute()
+  axios
+  .put("http://127.0.0.1:8000/api/users/" + route.params.doctorId,{
+    "email": form.value.email,
+    "name": form.value.name,
+    "phoneNumber": form.value.phoneNumber,
+    "nationality": form.value.nationality,
+    "sex": form.value.sex,
+    "birth": form.value.birth,
+    // "language": language.value.language
+    // "marital_status": marital_status.value
+  }, config)
+  .then(response =>{
+    //Lors que la modification fonctionne
+    console.log(response.data);
+    console.log('Mise à jour des données du docteur');
+    router.push({path: '/protected-page/carers'})
+  })
+  .catch(error =>{
+    console.error('Erreur lors de la mise à jour du docteur');
+    console.error(error.response.data);
+    console.log(error);
+  });
+}
 </script>
 
 <template>
@@ -142,17 +187,39 @@ let rail=ref(true)
               ></v-text-field>
                 
             </v-col>
+            <v-col 
+              cols="12"
+              sm="10"
+            >
+              <v-text-field
+                v-model="form.birth"
+                variant="outlined"
+                label="Date Naissance"
+              ></v-text-field>
+                
+            </v-col>
+            <v-col 
+              cols="12"
+              sm="10"
+            >
+              <v-text-field
+                v-model="form.language"
+                variant="outlined"
+                label="Langues parlées"
+              ></v-text-field>
+                
+            </v-col>
           </v-row>
         </v-container>
         <!-- <RouterLink to="/protected-page/carers"> -->
           <v-btn
-              :loading="isUpdating"
-              :variant="isUpdating ? 'tonal' : undefined"
-              color="blue-grey-lighten-3"
-              :prepend-icon="mdiUpdate"
-              @click="editDoctor"
+            :loading="isUpdating"
+            :variant="isUpdating ? 'tonal' : undefined"
+            color="blue-grey-lighten-3"
+            :prepend-icon="mdiUpdate"
+            @click="editDoctor"
           >
-              Appliquer
+            Appliquer
           </v-btn>
         <!-- </RouterLink> -->
       </v-main>

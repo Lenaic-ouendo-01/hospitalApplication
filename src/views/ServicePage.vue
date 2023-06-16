@@ -56,7 +56,7 @@ let service = ref([{sName: "", sResponsable: ""}]);
       @click="rail = false"
       >
       <v-list-item 
-      prepend-avatar="https://randomuser.me/api/portraits/men/85.jpg"
+      prepend-avatar="https://scontent-lis1-1.xx.fbcdn.net/v/t1.6435-9/116822065_980948495679776_9093214250912544364_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=174925&_nc_ohc=NQIzTHWQDQoAX9_kjoj&_nc_ht=scontent-lis1-1.xx&oh=00_AfA2b-cSCf9ZMsEXWYZe4a2Px2aNvOllFAnSH4wvg-3dZA&oe=64AFB9F6"
       :title="infoUser.name"
       nav
     >
@@ -226,15 +226,15 @@ import { aliases, mdi } from 'vuetify/iconsets/mdi'
   }
 };
 
-let nom=ref("")
+let name=ref("")
 let description=ref("")
 let opening_hours=ref("")
 let status=ref("")
 
 function createService(){
   axios
-  .post("http://127.0.0.1:8000/api/service/create",{
-      "nom": nom.value,
+  .post("http://127.0.0.1:8000/api/services",{
+      "name": name.value,
       "description": description.value,
       "opening_hours": opening_hours.value,
       "status": status.value,
@@ -263,7 +263,7 @@ function createService(){
         @click="rail = false"
       >
         <v-list-item 
-          prepend-avatar="https://randomuser.me/api/portraits/men/85.jpg"
+          prepend-avatar="https://scontent-lis1-1.xx.fbcdn.net/v/t1.6435-9/116822065_980948495679776_9093214250912544364_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=174925&_nc_ohc=NQIzTHWQDQoAX9_kjoj&_nc_ht=scontent-lis1-1.xx&oh=00_AfA2b-cSCf9ZMsEXWYZe4a2Px2aNvOllFAnSH4wvg-3dZA&oe=64AFB9F6"
           :title="infoUser.name"
           nav
         >
@@ -318,7 +318,7 @@ function createService(){
                 <v-row dense>
                   <v-col cols="8">
                     <v-text-field
-                    v-model="nom"
+                    v-model="name"
                     :disabled="isUpdating"
                     label="Nom du service"
                     ></v-text-field>
