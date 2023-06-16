@@ -199,7 +199,7 @@ onMounted(() => {
                   center. You can update it quickly and easily.
                 </v-card-text>
                 <div class="pa-4 text-center">
-                  <RouterLink to="/protected-page/service">
+                  <RouterLink to="/protected-page/services">
                     <v-btn
                       color="warning"
                       variant="outlined"                      

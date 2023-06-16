@@ -137,12 +137,13 @@ function deleteService(serviceId) {
             <v-alert
               border="start"
               border-color="deep-purple accent-4"
-              elevation="2"
+              elevation="6"
+              min-width="160px"
             >
               <v-btn
                 :prepend-icon="mdiAccountPlus"
                 @click="createService"
-                >
+              >
                 <RouterLink to="/protected-page/services/add-service" class="route">
                   Ajouter 
                 </RouterLink>

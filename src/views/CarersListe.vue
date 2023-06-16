@@ -133,14 +133,21 @@ function deleteDoctor(doctorId) {
                 Date de naissance
               </th>
             </tr>
-            <v-btn
+            <v-alert
+              border="start"
+              border-color="deep-purple accent-4"
+              elevation="6"
+              min-width="160px"
+            >
+              <v-btn
                 :prepend-icon="mdiAccountPlus"
                 @click="createService"
-                >
+              >
                 <RouterLink to="/protected-page/carers/add-carer" class="route">
                   Ajouter 
                 </RouterLink>
               </v-btn>
+            </v-alert>
           </thead>
           <tbody>
             <tr

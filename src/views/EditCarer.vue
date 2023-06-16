@@ -9,7 +9,6 @@ import {
   mdiDoctor, 
 } from '@mdi/js'
 import axios from 'axios';
-import router from '../router';
 
 onMounted(()=>{
   console.log(route.params);
@@ -45,7 +44,6 @@ let drawer= ref(true)
 let rail=ref(true)
 
 function doctor(){
-  // const route = useRoute()
   axios
   .get("http://127.0.0.1:8000/api/users/" + route.params.doctorId, config)
   .then(
@@ -57,7 +55,6 @@ function doctor(){
 }
 
 function editDoctor(){
-  // const route = useRoute()
   axios
   .put("http://127.0.0.1:8000/api/users/" + route.params.doctorId,{
     "email": form.value.email,
@@ -73,7 +70,7 @@ function editDoctor(){
     //Lors que la modification fonctionne
     console.log(response.data);
     console.log('Mise à jour des données du docteur');
-    router.push({path: '/protected-page/carers'})
+    router.push({path: '/protected-page/carers'});
   })
   .catch(error =>{
     console.error('Erreur lors de la mise à jour du docteur');
