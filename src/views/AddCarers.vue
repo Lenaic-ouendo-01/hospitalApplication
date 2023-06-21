@@ -50,28 +50,28 @@ let email = ref("")
 let password = ref("Anvb@DEflqg2vh3M")
 
 function createDoctor(){
-    console.log(email.value, password.value)
-    axios
-    .post("http://127.0.0.1:8000/api/users/doctors",{
-        "email": email.value,
-        "name": name.value,
-        "phoneNumber": phoneNumber.value,
-        "nationality": nationality.value,
-        "sex": sex.value,
-        "birth": birth.value,
-        // "language": language.value,
-        "password": password.value
-        // "marital_status": marital_status.value
-    },config)
-    .then(
-        (response) =>{
-        console.log(response)
-        // router.push({path: '/protected-page'});
-        
-        }
-    )
-    .catch(error => console.log(error));
+  console.log(email.value, password.value)
+  axios
+  .post("http://127.0.0.1:8000/api/users/doctors",{
+    "email": email.value,
+    "name": name.value,
+    "phoneNumber": phoneNumber.value,
+    "nationality": nationality.value,
+    "sex": sex.value,
+    "birth": birth.value,
+    // "language": language.value,
+    "password": password.value
+    // "marital_status": marital_status.value
+  },config)
+  .then(
+    (response) =>{
+    console.log(response)
+    // router.push({path: '/protected-page'});
+    
     }
+  )
+  .catch(error => console.log(error));
+  }
 
 </script>
 
@@ -86,7 +86,7 @@ function createDoctor(){
         @click="rail = false"
       >
         <v-list-item 
-          prepend-avatar="https://scontent-lis1-1.xx.fbcdn.net/v/t1.6435-9/116822065_980948495679776_9093214250912544364_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=174925&_nc_ohc=NQIzTHWQDQoAX9_kjoj&_nc_ht=scontent-lis1-1.xx&oh=00_AfA2b-cSCf9ZMsEXWYZe4a2Px2aNvOllFAnSH4wvg-3dZA&oe=64AFB9F6"
+          prepend-avatar="https://th.bing.com/th/id/R.6035ac84041991e738c514bbf7301c4f?rik=tIIlwfNMtPyhbw&riu=http%3a%2f%2fval-revermont.fr%2fwordpress%2fwp-content%2fuploads%2f2018%2f07%2fMedecin.jpg&ehk=uYtLlYVRCDqJvPOLoa8L27yj6tUSOIu3wd0ZgfaMYAU%3d&risl=&pid=ImgRaw&r=0"
           :title="infoUser.name"
           nav
         >
@@ -110,145 +110,145 @@ function createDoctor(){
       </v-navigation-drawer>
       <v-main style="min-height:1000px ;">
         <v-container fluid class="d-flex justify-center">
-            <v-row>
-                <v-col>
-                    <v-card
-                        class="mx-auto my-10"
-                        width="400"
-                        :prepend-icon="mdiDoctor"
-                    >    
-                        <v-card-text 
-                          class="text-center text-h5"
-                        >
-                            Ajouter un nouveau membre du personnel soignant.  
-                        </v-card-text>
-                    </v-card>
-                </v-col>
-                <v-col
-                  cols="12"
-                  sm="10"
+          <v-row>
+            <v-col>
+              <v-card
+                class="mx-auto my-10"
+                width="400"
+                :prepend-icon="mdiDoctor"
+              >    
+                <v-card-text 
+                  class="text-center text-h5"
                 >
-                    <v-text-field
-                        v-model="name"
-                        label="Nom et Prénom"
-                        variant="outlined"
-                    ></v-text-field>
-                </v-col>
-                
-                <v-col
-                  cols="12"
-                  sm="10"
-                >
-                    <v-text-field
-                    v-model="email"
-                    variant="outlined"
-                    :rules="[rules.required, rules.email]"
-                    label="E-mail"
-                    ></v-text-field>
-                </v-col>
+                  Ajouter un nouveau membre du personnel soignant.  
+                </v-card-text>
+              </v-card>
+            </v-col>
+            <v-col
+              cols="12"
+              sm="10"
+            >
+              <v-text-field
+                v-model="name"
+                label="Nom et Prénom"
+                variant="outlined"
+              ></v-text-field>
+            </v-col>
             
-                <v-col 
-                  cols="12"
-                  sm="5"
-                >
-                    <v-text-field
-                        v-model="phoneNumber"
-                        label="Numéro de téléphone"
-                        variant="outlined"
-                    ></v-text-field>
-                </v-col>
-            
-                <v-col
-                  cols="12"
-                  sm="5"
-                >
-                    <v-combobox
-                        v-model="sex"
-                        :items="items"
-                        label="Sex"
-                        variant="outlined"
-                    >
-                        <template v-slot:selection="data">
-                        <v-chip
-                            :key="JSON.stringify(data.item)"
-                            v-bind="data.attrs"
-                            :model-value="data.selected"
-                            :disabled="data.disabled"
-                            size="small"
-                            @click:close="data.parent.selectItem(data.item)"
-                        >
-                            <template v-slot:prepend>
-                            <v-avatar
-                                class="bg-black text-warning text-uppercase"
-                                start
-                            >
-                                {{ data.item.title.slice(0, 1) }}
-                            </v-avatar>
-                            </template>
-                            {{ data.item.title }}
-                        </v-chip>
-                        </template> 
-                    </v-combobox>
-                </v-col>
+            <v-col
+              cols="12"
+              sm="10"
+            >
+              <v-text-field
+                v-model="email"
+                variant="outlined"
+                :rules="[rules.required, rules.email]"
+                label="E-mail"
+              ></v-text-field>
+            </v-col>
+        
+            <v-col 
+              cols="12"
+              sm="5"
+            >
+              <v-text-field
+                v-model="phoneNumber"
+                label="Numéro de téléphone"
+                variant="outlined"
+              ></v-text-field>
+            </v-col>
+        
+            <v-col
+              cols="12"
+              sm="5"
+            >
+              <v-combobox
+                v-model="sex"
+                :items="items"
+                label="Sex"
+                variant="outlined"
+              >
+                <template v-slot:selection="data">
+                  <v-chip
+                    :key="JSON.stringify(data.item)"
+                    v-bind="data.attrs"
+                    :model-value="data.selected"
+                    :disabled="data.disabled"
+                    size="small"
+                    @click:close="data.parent.selectItem(data.item)"
+                  >
+                    <template v-slot:prepend>
+                      <v-avatar
+                        class="bg-black text-warning text-uppercase"
+                        start
+                      >
+                        {{ data.item.title.slice(0, 1) }}
+                      </v-avatar>
+                    </template>
+                    {{ data.item.title }}
+                  </v-chip>
+                </template> 
+              </v-combobox>
+            </v-col>
 
-                <v-col 
-                  cols="12"
-                  sm="10"
-                >
-                    <v-autocomplete
-                        v-model="nationality"
-                        :rules="[() => !!nationality || 'This field is required']"
-                        :items="nation"
-                        label="Pays d'origine"
-                        placeholder="Select..."
-                        required
-                    ></v-autocomplete>
-                    
-                </v-col>
-                
-                <!-- <v-col
-                  cols="12"
-                  sm="10"
-                >
-                    <v-text-field
-                    v-model="language"
-                    label="Langue"
-                    variant="outlined"
-                    ></v-text-field>
-                </v-col> -->
-                
-                <v-col 
-                  cols="10"
-                >
-                    <v-text-field
-                        v-model="birth"
-                        label="Date de naisance"
-                        placeholder="dd/mm/yyyy"
-                        variant="outlined"
-                    ></v-text-field>
-                </v-col>
+            <v-col 
+              cols="12"
+              sm="10"
+            >
+              <v-autocomplete
+                v-model="nationality"
+                :rules="[() => !!nationality || 'This field is required']"
+                :items="nation"
+                label="Pays d'origine"
+                placeholder="Select..."
+                required
+              ></v-autocomplete>
             
-                <!-- <v-col 
-                cols="8"
-                >
-                    <v-text-field
-                        v-model="address"
-                        label="Address"
-                        variant="outlined"
-                    ></v-text-field>
-                </v-col> -->
-            </v-row>
+            </v-col>
+            
+            <v-col
+              cols="12"
+              sm="10"
+            >
+                <v-text-field
+                v-model="language"
+                label="Langue parlée"
+                variant="outlined"
+                ></v-text-field>
+            </v-col>
+            
+            <v-col 
+              cols="10"
+            >
+              <v-text-field
+                v-model="birth"
+                label="Date de naisance"
+                placeholder="dd/mm/yyyy"
+                variant="outlined"
+              ></v-text-field>
+            </v-col>
+        
+            <!-- <v-col 
+            cols="8"
+            >
+                <v-text-field
+                    v-model="address"
+                    label="Address"
+                    variant="outlined"
+                ></v-text-field>
+            </v-col> -->
+          </v-row>
         </v-container>
         <RouterLink to="/protected-page">
-            <v-btn
-                :loading="isUpdating"
-                :variant="isUpdating ? 'tonal' : undefined"
-                color="blue-grey-lighten-3"
-                :prepend-icon="mdiUpdate"
-                @click="createDoctor"
-            >
-                Ajouter
-            </v-btn>
+          <v-btn
+            :loading="isUpdating"
+            :variant="isUpdating ? 'tonal' : undefined"
+            color="blue-grey-lighten-3"
+            :prepend-icon="mdiUpdate"
+            @click="createDoctor"
+          >
+            Ajouter
+          </v-btn>
         </RouterLink>
       </v-main>
 

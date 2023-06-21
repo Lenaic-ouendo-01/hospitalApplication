@@ -4,25 +4,28 @@ import LogOut from '../components/LogOut.vue'
 import { onMounted, ref } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { RouterLink, RouterView } from 'vue-router'
+import { useMeStore } from '../stores/me.store';
+import axios from 'axios';
 import { 
   mdiChevronLeft, 
-  mdiDoctor, 
-} from '@mdi/js'
-import axios from 'axios';
+  mdiDoctor,
+  mdiUpdate, 
+} from '@mdi/js';
+
 
 onMounted(()=>{
-  console.log(route.params);
-  doctor();
+    authUser.me()
+    console.log(authUser.user.data)
 })
 
+const authUser = useMeStore();
 const config = {
   headers:{
     Authorization: 'Bearer ' + localStorage.getItem('token'),    
   }
 };
-const route = useRoute()
-let router=useRouter()
 
+let router=useRouter()
 let rules = ref ({
   required: value => !!value || 'Required.',
   counter: value => value.length <= 20 || 'Max 20 characters',
@@ -32,51 +35,43 @@ let rules = ref ({
   },
 });
 let form = ref({
-  phoneNumber: '',
-  birth: '',
-  sex: '',
-  nationality: '',
-  email: '',
   name: '',
+  description: '',
+  number_fix: '+229 ',
+  email: '',
+  address: '',
+  city: '',
+  number_mobile: '+229 ',
+  number_urgence: '+229 ',
+  hours: '',
   language: ''
 })
 let drawer= ref(true)
 let rail=ref(true)
 
-function doctor(){
-  axios
-  .get("http://127.0.0.1:8000/api/users/" + route.params.doctorId, config)
-  .then(
-    (response) =>{
-      form.value = response.data.data
-    }
-  )
-  .catch(error => console.log(error));
-}
 
-function editDoctor(){
+function createHospital() {
   axios
-  .put("http://127.0.0.1:8000/api/users/" + route.params.doctorId,{
-    "email": form.value.email,
-    "name": form.value.name,
-    "phoneNumber": form.value.phoneNumber,
-    "nationality": form.value.nationality,
-    "sex": form.value.sex,
-    "birth": form.value.birth,
-    // "language": language.value.language
-    // "marital_status": marital_status.value
-  }, config)
-  .then(response =>{
-    //Lors que la modification fonctionne
-    console.log(response.data);
-    console.log('Mise à jour des données du docteur');
-    router.push({path: '/protected-page/carers'});
-  })
-  .catch(error =>{
-    console.error('Erreur lors de la mise à jour du docteur');
-    console.error(error.response.data);
-    console.log(error);
-  });
+    .post('http://127.0.0.1:8000/api/hospitals', {
+      "name": form.value.name,
+      "description": form.value.description,
+      "number_fix": form.value.number_fix,
+      "email": form.value.email,
+      "address": form.value.address,
+      "city": form.value.city,
+      "number_mobile": form.value.number_mobile,
+      "number_urgence": form.value.number_urgence,
+      "hours": form.value.hours,
+      "language": form.value.language,          
+    }, config)
+    .then(
+      (reponse) => {
+        console.log(reponse)
+        router.push({path: '/protected-page/hospital'});
+      }
+    )
+    .catch(erreur => console.log(erreur));
+
 }
 </script>
 
@@ -91,6 +86,7 @@ function editDoctor(){
       >
         <v-list-item 
           prepend-avatar="https://th.bing.com/th/id/R.6035ac84041991e738c514bbf7301c4f?rik=tIIlwfNMtPyhbw&riu=http%3a%2f%2fval-revermont.fr%2fwordpress%2fwp-content%2fuploads%2f2018%2f07%2fMedecin.jpg&ehk=uYtLlYVRCDqJvPOLoa8L27yj6tUSOIu3wd0ZgfaMYAU%3d&risl=&pid=ImgRaw&r=0"
+          :title="authUser.user.data.name"
           nav
         >
           <template v-slot:append>
@@ -114,7 +110,7 @@ function editDoctor(){
       <v-main style="min-height:1000px ;">
         <v-container fluid class="d-flex justify-center">
           <v-row>
-            <v-col>
+            <!-- <v-col>
               <v-card
                 class="mx-auto my-10 bg-grey-lighten-2"
                 width="400"
@@ -122,86 +118,118 @@ function editDoctor(){
                 <v-card-text 
                   class="text-center text-h5"
                 >
-                  Modification des informations
+                  
                 </v-card-text>
               </v-card>
-            </v-col>
+            </v-col> -->
             <v-col
               cols="12"
-              sm="10"
+              sm="7"
             >
               <v-text-field
                 v-model="form.name"
-                variant="outlined"
-                label="Nom & Prénom"
+                variant="solo-filled"
+                label="Nom de l'hôpital"
               ></v-text-field>
             </v-col>
             
             <v-col
               cols="12"
-              sm="10"
+              sm="7"
             >
               <v-text-field
                 v-model="form.email"
-                variant="outlined"
+                variant="solo-filled"
                 :rules="[rules.required, rules.email]"
                 label="Email"
-                readonly
               ></v-text-field>
             </v-col>
         
             <v-col 
               cols="12"
-              sm="5"
+              sm="7"
             >
               <v-text-field
-                v-model="form.phoneNumber"
-                variant="outlined"
-                label="Numéro de téléphone"
-              ></v-text-field>
-            </v-col>
-        
-            <v-col
-              cols="12"
-              sm="5"
-            >
-              <v-text-field
-                v-model="form.sex"
-                variant="outlined"
-                label="Sexe"
-                readonly
+                v-model="form.number_fix"
+                variant="solo-filled"
+                label="Numéro Fix"
               ></v-text-field>
             </v-col>
 
             <v-col 
               cols="12"
-              sm="10"
+              sm="7"
             >
               <v-text-field
-                v-model="form.nationality"
-                variant="outlined"
-                label="Nationalité"
+                v-model="form.number_urgence"
+                variant="solo-filled"
+                label="Numéro d'urgence"
+              ></v-text-field>
+            </v-col>
+
+            <v-col 
+              cols="12"
+              sm="7"
+            >
+              <v-text-field
+                v-model="form.number_mobile"
+                variant="solo-filled"
+                label="Numéro mobile"
+              ></v-text-field>
+            </v-col>
+        
+            <v-col
+              cols="12"
+              sm="7"
+            >
+              <v-text-field
+                v-model="form.address"
+                variant="solo-filled"
+                label="Adresse de l'hôpital"
+              ></v-text-field>
+            </v-col>
+
+            <v-col 
+              cols="12"
+              sm="7"
+            >
+              <v-text-field
+                v-model="form.city"
+                variant="solo-filled"
+                label="Ville"
+              ></v-text-field>
+                
+            </v-col>
+
+            <v-col 
+              cols="12"
+              sm="7"
+            >
+              <v-text-field
+                v-model="form.hours"
+                variant="solo-filled"
+                label="Horaire"
+              ></v-text-field>
+            </v-col>
+
+            <v-col 
+              cols="12"
+              sm="7"
+            >
+              <v-text-field
+                v-model="form.description"
+                variant="solo-filled"
+                label="Description"
               ></v-text-field>
                 
             </v-col>
             <v-col 
               cols="12"
-              sm="10"
-            >
-              <v-text-field
-                v-model="form.birth"
-                variant="outlined"
-                label="Date Naissance"
-              ></v-text-field>
-                
-            </v-col>
-            <v-col 
-              cols="12"
-              sm="10"
+              sm="7"
             >
               <v-text-field
                 v-model="form.language"
-                variant="outlined"
+                variant="solo-filled"
                 label="Langues parlées"
               ></v-text-field>
                 
@@ -214,9 +242,9 @@ function editDoctor(){
             :variant="isUpdating ? 'tonal' : undefined"
             color="blue-grey-lighten-3"
             :prepend-icon="mdiUpdate"
-            @click="editDoctor"
+            @click="createHospital"
           >
-            Appliquer
+            Créer
           </v-btn>
         <!-- </RouterLink> -->
       </v-main>

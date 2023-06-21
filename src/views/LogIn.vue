@@ -34,7 +34,7 @@ import { mdiEmailOutline, mdiLockOutline, mdiEye, mdiEyeOff } from '@mdi/js'
 </script>
 
 <template>
-  <div class="piper">
+  <div class="piper ma-16">
     <v-card
       class="mx-auto pa-12 pb-8"
       elevation="8"

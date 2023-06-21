@@ -26,11 +26,11 @@ function logout(){
 
 <template>
   <v-list density="default" nav>
-    <RouterLink to="/" class="route">
+    <RouterLink to="" class="route">
       <v-list-item 
       :prepend-icon="mdiCog" 
       title="Setting" 
-      value="home"
+      value="setting"
     ></v-list-item>
     </RouterLink>
     

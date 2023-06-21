@@ -15,8 +15,8 @@ import { useMeStore } from '../stores/me.store';
 
 onMounted(()=>{
   listService();
-  authUser.me()
-  console.log(authUser.user.data)
+  authUser.me()          //**************************************************** */
+  console.log(authUser.user.data)          //********************************* */
 })
 
 let drawer= ref(true)
@@ -25,8 +25,9 @@ let infoUser =ref({})
 let searchValue = ref('')
 let services = ref("")
 let dialog=ref(false)
+let router=useRouter()
 
-const authUser = useMeStore()
+const authUser = useMeStore()      /***************************************** */
 
 const config = {
   headers:{
@@ -48,7 +49,10 @@ function listService() {
 
 function deleteService(serviceId) {
     axios
-      .delete('http://127.0.0.1:8000/api/users/' + serviceId, config)
+      .delete('http://127.0.0.1:8000/api/services/' + serviceId, config)
+      .then(
+        router.push({path: '/protected-page/services'})
+      )
       .catch(erreur => console.log(erreur));
 }
 
@@ -77,7 +81,7 @@ function deleteService(serviceId) {
         @click="rail = false"
       >
         <v-list-item 
-          prepend-avatar="https://scontent-lis1-1.xx.fbcdn.net/v/t1.6435-9/116822065_980948495679776_9093214250912544364_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=174925&_nc_ohc=NQIzTHWQDQoAX9_kjoj&_nc_ht=scontent-lis1-1.xx&oh=00_AfA2b-cSCf9ZMsEXWYZe4a2Px2aNvOllFAnSH4wvg-3dZA&oe=64AFB9F6"
+          prepend-avatar="https://th.bing.com/th/id/R.6035ac84041991e738c514bbf7301c4f?rik=tIIlwfNMtPyhbw&riu=http%3a%2f%2fval-revermont.fr%2fwordpress%2fwp-content%2fuploads%2f2018%2f07%2fMedecin.jpg&ehk=uYtLlYVRCDqJvPOLoa8L27yj6tUSOIu3wd0ZgfaMYAU%3d&risl=&pid=ImgRaw&r=0"
           :title="infoUser.name"
           nav
         >
@@ -176,15 +180,17 @@ function deleteService(serviceId) {
                     <p>Souhaitez-vous vraiment supprimer ce service ?</p>
                     
                     <template v-slot:actions>
-                    
-                    <v-btn
-                      class="text-danger"
-                      color="black.0"
-                      variant="text"
-                      @click="deleteService(service.id), dialog = false"
-                    >
-                      Oui
-                    </v-btn>
+                      
+                    <RouterLink to="/protected-page" >
+                      <v-btn
+                        class="text-danger"
+                        color="black.0"
+                        variant="text"
+                        @click="deleteService(service.id), dialog = false"
+                      >
+                        Oui
+                      </v-btn>
+                    </RouterLink>
                     
                     <v-btn
                       color="black.0"

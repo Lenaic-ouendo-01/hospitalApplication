@@ -28,8 +28,11 @@ mdiVirusOffOutline
     <RouterLink to="/protected-page" class="route">
       <v-list-item :prepend-icon="mdiHome" title="Home" value="home"></v-list-item>
     </RouterLink>
-    <RouterLink to="/protected-page/account" class="route">
+    <RouterLink to="/protected-page/accounts" class="route">
       <v-list-item :prepend-icon="mdiAccount" title="My Account" value="account"></v-list-item>
+    </RouterLink>
+    <RouterLink to="/protected-page/hospital" class="route">
+      <v-list-item :prepend-icon="mdiHospital" title="Hospital" value="hospital"></v-list-item>
     </RouterLink>
     <RouterLink to="/protected-page/carers" class="route">
       <v-list-item :prepend-icon="mdiStethoscope" title="Carers" value="carers"></v-list-item>
@@ -37,15 +40,7 @@ mdiVirusOffOutline
     <RouterLink to="/protected-page/services" class="route">
       <v-list-item :prepend-icon="mdiCharity" title="Services" value="services"></v-list-item>
     </RouterLink>
-    <RouterLink to="/protected-page/patients/add-patient" class="route">
-      <v-list-item :prepend-icon="mdiVirusOffOutline" title="Patients" value="patients"></v-list-item>
-    </RouterLink>
-    <!-- <RouterLink to="" class="route">
-      <v-list-item :prepend-icon="mdiAccountMultiplePlus" title="Add a caregiver" value="caregiver"></v-list-item>
-    </RouterLink>
-    <RouterLink to="" class="route">
-      <v-list-item :prepend-icon="mdiCharity" title="Add a services" value="service"></v-list-item>
-    </RouterLink> -->
+  
   </v-list>
   
   

@@ -1,9 +1,11 @@
 <script setup>
 import axios from 'axios';
 import { onMounted, ref } from 'vue';
-import { useRouter } from 'vue-router';
+import { useRouter } from 'vue-router'; 
 import { RouterLink, RouterView } from 'vue-router'
 import NavigationDrawersHospital from '../components/NavigationDrawersHospital.vue'
+import NavigationDoctor from '../components/NavigationDoctor.vue'
+import NavigationPatient from '../components/NavigationPatient.vue'
 import LogOut from '../components/LogOut.vue'
 
 import { 
@@ -73,16 +75,16 @@ onMounted(() => {
       @click="rail = false"
       >
         <v-list-item 
-          prepend-avatar="https://scontent-lis1-1.xx.fbcdn.net/v/t1.6435-9/116822065_980948495679776_9093214250912544364_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=174925&_nc_ohc=NQIzTHWQDQoAX9_kjoj&_nc_ht=scontent-lis1-1.xx&oh=00_AfA2b-cSCf9ZMsEXWYZe4a2Px2aNvOllFAnSH4wvg-3dZA&oe=64AFB9F6"
+          prepend-avatar="https://th.bing.com/th/id/R.6035ac84041991e738c514bbf7301c4f?rik=tIIlwfNMtPyhbw&riu=http%3a%2f%2fval-revermont.fr%2fwordpress%2fwp-content%2fuploads%2f2018%2f07%2fMedecin.jpg&ehk=uYtLlYVRCDqJvPOLoa8L27yj6tUSOIu3wd0ZgfaMYAU%3d&risl=&pid=ImgRaw&r=0"
           :title="infoUser.name"
           nav
           >
 
           <template v-slot:append>
             <v-btn
-            variant="text"
-            :icon="mdiChevronLeft"
-            @click.stop="rail = !rail"
+              variant="text"
+              :icon="mdiChevronLeft"
+              @click.stop="rail = !rail"
             ></v-btn>
           </template>
         </v-list-item>
@@ -91,14 +93,19 @@ onMounted(() => {
         <v-divider></v-divider> 
         <v-divider></v-divider>
         
-        <NavigationDrawersHospital></NavigationDrawersHospital>
+        <NavigationDrawersHospital v-if="infoUser.role_id == 1"></NavigationDrawersHospital>
+
+        <NavigationDoctor v-else-if="infoUser.role_id == 2"></NavigationDoctor>
+
+        <NavigationPatient v-else></NavigationPatient>
+
         
         <template v-slot:append>
           <LogOut></LogOut>
         </template>
       </v-navigation-drawer>
       <v-main>
-        <div> 
+        <div v-if="infoUser.role_id == 1"> 
           <!-- <div class="pa-4 text-end">
             <RouterLink to="/protected-page/service">
               <v-btn
@@ -117,16 +124,21 @@ onMounted(() => {
 
           <v-card
             class="mx-auto my-10"
-            width="400"
+            width="500"
             :prepend-icon="mdiAlienOutline"
                   
           >
             <template v-slot:title>
-              Welcom {{infoUser.name}}
+              Bienvenue {{infoUser.name}}
             </template>
   
-            <v-card-text class="text-center text-h6">
-              Today is a new day 😎. So enjoy ❤️.  
+            <v-card-text class="text-center text-h5">
+              "L'art de la médecine consiste à distraire le malade pendant que la nature le guérit ❤️." 
+            </v-card-text>
+            <v-card-text 
+              class="text-h6 "
+            >
+              <i class="text-success text-center">Voltaire</i>
             </v-card-text>
           </v-card>
                     
@@ -145,12 +157,12 @@ onMounted(() => {
                   The information of your porfil in a simple and fast way.
                 </v-card-text>
                 <div class="pa-4 text-center">
-                  <RouterLink to="">
+                  <RouterLink to="/protected-page/accounts">
                     <v-btn
                       color="warning"
                       variant="outlined"                    
                     >
-                      Go
+                      Accéder
                     </v-btn>
                   </RouterLink>
                 </div>
@@ -177,7 +189,7 @@ onMounted(() => {
                       color="warning"
                       variant="outlined"
                     >
-                      Go
+                      Accéder
                     </v-btn>
                   </RouterLink>
                 </div>
@@ -204,7 +216,7 @@ onMounted(() => {
                       color="warning"
                       variant="outlined"                      
                     >
-                      Go
+                      Accéder
                     </v-btn>
                   </RouterLink>
                 </div>
@@ -219,25 +231,32 @@ onMounted(() => {
             >
               <v-card class="bg-white text--primary" max-width="500">
                 <v-card-title class="bg-blue-lighten-5 text--primary text-h4">
-                  Patients
+                  Hôpital
                 </v-card-title>
                 <v-card-text class="ma-4 text-h5">
-                  Access your centre's patient list.
-                  You can update it quickly and easily.
+                  Access to information of your hospital.
                 </v-card-text>
                 <div class="pa-4 text-center">
-                  <RouterLink to="/protected-page/">
+                  <RouterLink to="/protected-page/hospital">
                     <v-btn
                       color="warning"
                       variant="outlined"                      
                     >
-                      Go
+                      Accéder
                     </v-btn>
                   </RouterLink>
                 </div>
               </v-card>
             </v-timeline-item>
           </v-timeline>
+        </div>
+
+        <div v-else-if="infoUser.role_id == 2">
+
+        </div>
+
+        <div v-else>
+
         </div>
       </v-main>
     </v-layout>

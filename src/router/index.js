@@ -16,45 +16,69 @@ const router = createRouter({
       component: () => import("../views/ProtectedPage.vue")
     },
     {
-      path: '/protected-page/services/add-service',
-      name: 'addService',
-      component: () => import("../views/ServicePage.vue")
-    },
-    {
       path: '/signup',
       name: 'signup',
       component: () => import("../views/SignUp.vue")
     },
+
+    //Routes concernants les actions sur les médecins
     {
       path: '/protected-page/carers',
       name: 'carers',
       component: () => import("../views/CarersListe.vue")
     },
     {
+      path: '/protected-page/carers/add-carer',
+      name: 'addCarer',
+      component: () => import("../views/AddCarers.vue")
+    },
+    {
       path: '/protected-page/carers/edit/:doctorId',
       name: 'editCarer',
       component: () => import("../views/EditCarer.vue")
     },
-    {
-      path: '/protected-page/service/edit/:serviceId',
-      name: 'editService',
-      component: () => import("../views/EditService.vue")
-    },
+
+    //Routes concernants les actions sur les services
     {
       path: '/protected-page/services',
       name: 'services',
       component: () => import("../views/ServiceListe.vue")
     },
     {
-      path: '/protected-page/carers/add-carer',
-      name: 'addCarer',
-      component: () => import("../views/AddCarers.vue")
+      path: '/protected-page/services/add-service',
+      name: 'addService',
+      component: () => import("../views/AddService.vue")
+    },
+    {
+      path: '/protected-page/service/edit/:serviceId',
+      name: 'editService',
+      component: () => import("../views/EditService.vue")
     },
    
+    //Routes concernants les actions sur les patients
     {
       path: '/protected-page/patients/add-patient',
       name: 'addPatient',
       component: () => import("../views/InscriptionPatient.vue")
+    },
+
+    //Routes concernants les actions sur les hôpitaux
+    {
+      path: '/protected-page/hospital',
+      name: 'hospital',
+      component: () => import("../views/MyHospital.vue")
+    },
+    {
+      path: '/protected-page/hospital/create',
+      name: 'createhospital',
+      component: () => import("../views/CreateHospital.vue")
+    },
+
+    //Routes concernats les actions sur le User connecté
+    {
+      path: '/protected-page/accounts',
+      name: 'accounts',
+      component: () => import("../views/AccountPage.vue")
     }
   ]
 })

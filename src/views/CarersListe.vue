@@ -11,22 +11,26 @@ mdiAccountPlus,
   mdiMagnify, 
 } from '@mdi/js'
 import axios from 'axios';
+import { useMeStore } from '../stores/me.store';
+
+onMounted(()=>{
+  authUser.me();
+  console.log(authUser.user.data);
+  listDoctor();
+})
 
 let drawer= ref(true)
 let rail=ref(true)
-let infoUser =ref({})
 let searchValue = ref('')
 let doctors = ref("")
-let dialog=ref(false)
 
 const config = {
   headers:{
     Authorization: 'Bearer ' + localStorage.getItem('token'),    
   }
 };
-onMounted(()=>{
-  listDoctor();
-})
+
+const authUser = useMeStore();
 
 function listDoctor() {
     axios
@@ -73,8 +77,8 @@ function deleteDoctor(doctorId) {
         @click="rail = false"
       >
         <v-list-item 
-          prepend-avatar="https://scontent-lis1-1.xx.fbcdn.net/v/t1.6435-9/116822065_980948495679776_9093214250912544364_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=174925&_nc_ohc=NQIzTHWQDQoAX9_kjoj&_nc_ht=scontent-lis1-1.xx&oh=00_AfA2b-cSCf9ZMsEXWYZe4a2Px2aNvOllFAnSH4wvg-3dZA&oe=64AFB9F6"
-          :title="infoUser.name"
+          prepend-avatar="https://th.bing.com/th/id/R.6035ac84041991e738c514bbf7301c4f?rik=tIIlwfNMtPyhbw&riu=http%3a%2f%2fval-revermont.fr%2fwordpress%2fwp-content%2fuploads%2f2018%2f07%2fMedecin.jpg&ehk=uYtLlYVRCDqJvPOLoa8L27yj6tUSOIu3wd0ZgfaMYAU%3d&risl=&pid=ImgRaw&r=0"
+          :title="authUser.user.name"
           nav
         >
           <template v-slot:append>
@@ -123,14 +127,17 @@ function deleteDoctor(doctorId) {
               <th class="text-left">
                 Sexe
               </th>
-              <th class="text-left">
+              <!-- <th class="text-left">
                 Langue
-              </th>
+              </th> -->
               <th class="text-left">
                 Nationalité
               </th>
-              <th class="text-left">
+              <!-- <th class="text-left">
                 Date de naissance
+              </th> -->
+              <th class="text-left">
+                Action
               </th>
             </tr>
             <v-alert
@@ -158,14 +165,20 @@ function deleteDoctor(doctorId) {
               <td>{{ doctor.email }}</td>
               <td>{{ doctor.phoneNumber }}</td>
               <td>{{ doctor.sex }}</td>
-              <td>{{ doctor.language }}</td>
+              <!-- <td>{{ doctor.language }}</td> -->
               <td>{{ doctor.nationality }}</td>
-              <td>{{ doctor.birth }}</td>
+              <!-- <td>{{ doctor.birth }}</td> -->
               <RouterLink :to="{name: 'editCarer', params:{doctorId: doctor.id}}">
                 <td>
                   <v-btn class="bg-primary">Modifier</v-btn>
                 </td>
               </RouterLink>
+
+              <!-- <RouterLink :to="{name: 'editCarer', params:{doctorId: doctor.id}}">
+                <td>
+                  <v-btn class="bg-primary">Associer service</v-btn>
+                </td>
+              </RouterLink> -->
               <!-- <td>
                 <v-btn 
                   class="bg-red" 
