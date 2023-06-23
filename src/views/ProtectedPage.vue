@@ -141,118 +141,289 @@ onMounted(() => {
               <i class="text-success text-center">Voltaire</i>
             </v-card-text>
           </v-card>
-                    
-          <v-timeline>
-            <v-timeline-item
-              dot-color="blue-lighten-2"
-              :icon="mdiAccount"
-              fill-dot
-            >
-              <v-card class="bg-white text--primary" max-width="500">
-                <v-card-title class="bg-blue-lighten-2 text--primary text-h4">
-                  Account
-                </v-card-title>
-                <v-card-text class="ma-4 text-h5">
-                  Check your account now. You can update it 
-                  The information of your porfil in a simple and fast way.
-                </v-card-text>
-                <div class="pa-4 text-center">
-                  <RouterLink to="/protected-page/accounts">
-                    <v-btn
-                      color="warning"
-                      variant="outlined"                    
-                    >
-                      Accéder
-                    </v-btn>
-                  </RouterLink>
-                </div>
-              </v-card>
-            </v-timeline-item>
-          </v-timeline>
-          <v-timeline>
-            <v-timeline-item
-              dot-color="blue-lighten-3"
-              :icon="mdiStethoscope"
-              fill-dot
-            >
-              <v-card class="bg-white text--primary" max-width="500">
-                <v-card-title class="bg-blue-lighten-3 text--primary text-h4">
-                  Carers
-                </v-card-title>
-                <v-card-text class="ma-4 text-h5">
-                  Consultez la liste des médecins de votre centre hospitalier. Enregistrez et modifiez plus rapidement et simplement You can put it on 
-                  up to date in a simple and fast way.
-                </v-card-text>
-                <div class="pa-4 text-center">
-                  <RouterLink to="/protected-page/carers">
-                    <v-btn
-                      color="warning"
-                      variant="outlined"
-                    >
-                      Accéder
-                    </v-btn>
-                  </RouterLink>
-                </div>
-              </v-card>
-            </v-timeline-item>
-          </v-timeline>
-          <v-timeline>
-            <v-timeline-item
-              dot-color="blue-lighten-4"
-              :icon="mdiCharity"
-              fill-dot
-            >
-              <v-card class="bg-white text--primary" max-width="500">
-                <v-card-title class="bg-blue-lighten-4 text--primary text-h4">
-                  Services
-                </v-card-title>
-                <v-card-text class="ma-4 text-h5">
-                  Consult now the list of services available in your
-                  center. You can update it quickly and easily.
-                </v-card-text>
-                <div class="pa-4 text-center">
-                  <RouterLink to="/protected-page/services">
-                    <v-btn
-                      color="warning"
-                      variant="outlined"                      
-                    >
-                      Accéder
-                    </v-btn>
-                  </RouterLink>
-                </div>
-              </v-card>
-            </v-timeline-item>
-          </v-timeline>
-          <v-timeline>
-            <v-timeline-item
-              dot-color="blue-lighten-5"
-              :icon="mdiVirusOffOutline"
-              fill-dot
-            >
-              <v-card class="bg-white text--primary" max-width="500">
-                <v-card-title class="bg-blue-lighten-5 text--primary text-h4">
-                  Hôpital
-                </v-card-title>
-                <v-card-text class="ma-4 text-h5">
-                  Access to information of your hospital.
-                </v-card-text>
-                <div class="pa-4 text-center">
-                  <RouterLink to="/protected-page/hospital">
-                    <v-btn
-                      color="warning"
-                      variant="outlined"                      
-                    >
-                      Accéder
-                    </v-btn>
-                  </RouterLink>
-                </div>
-              </v-card>
-            </v-timeline-item>
-          </v-timeline>
+          
+          <v-row>
+            <v-col cols="12" sm="6">
+              <v-timeline>
+                <v-timeline-item
+                  dot-color="blue-lighten-2"
+                  :icon="mdiAccount"
+                  fill-dot
+                >
+                  <v-card class="bg-white text--primary" max-width="500" elevation="4">
+                    <v-card-title class="bg-blue-lighten-2 text--primary text-h4">
+                      Account
+                    </v-card-title>
+                    <v-card-text class="ma-4 text-h5">
+                      Check your account now. You can update it 
+                      The information of your porfil in a simple and fast way.
+                    </v-card-text>
+                    <div class="pa-4 text-center">
+                      <RouterLink to="/protected-page/accounts">
+                        <v-btn
+                          color="warning"
+                          variant="outlined"                    
+                        >
+                          Accéder
+                        </v-btn>
+                      </RouterLink>
+                    </div>
+                  </v-card>
+                </v-timeline-item>
+              </v-timeline>
+            </v-col>
+
+            <v-col cols="12" sm="6">
+              <v-timeline>
+                <v-timeline-item
+                  dot-color="blue-lighten-3"
+                  :icon="mdiStethoscope"
+                  fill-dot
+                >
+                  <v-card class="bg-white text--primary" max-width="500" elevation="4">
+                    <v-card-title class="bg-blue-lighten-3 text--primary text-h4">
+                      Carers
+                    </v-card-title>
+                    <v-card-text class="ma-4 text-h5">
+                      Consultez la liste des médecins de votre centre hospitalier. Enregistrez et modifiez plus rapidement et simplement You can put it on 
+                      up to date in a simple and fast way.
+                    </v-card-text>
+                    <div class="pa-4 text-center">
+                      <RouterLink to="/protected-page/carers">
+                        <v-btn
+                          color="warning"
+                          variant="outlined"
+                        >
+                          Accéder
+                        </v-btn>
+                      </RouterLink>
+                    </div>
+                  </v-card>
+                </v-timeline-item>
+              </v-timeline>
+            </v-col>
+
+            <v-col cols="12" sm="6">
+              <v-timeline>
+                <v-timeline-item
+                  dot-color="blue-lighten-4"
+                  :icon="mdiCharity"
+                  fill-dot
+                >
+                  <v-card class="bg-white text--primary" max-width="500" elevation="4">
+                    <v-card-title class="bg-blue-lighten-4 text--primary text-h4">
+                      Services
+                    </v-card-title>
+                    <v-card-text class="ma-4 text-h5">
+                      Consult now the list of services available in your
+                      center. You can update it quickly and easily.
+                    </v-card-text>
+                    <div class="pa-4 text-center">
+                      <RouterLink to="/protected-page/services">
+                        <v-btn
+                          color="warning"
+                          variant="outlined"                      
+                        >
+                          Accéder
+                        </v-btn>
+                      </RouterLink>
+                    </div>
+                  </v-card>
+                </v-timeline-item>
+              </v-timeline>
+            </v-col>
+
+            <v-col cols="12" sm="6">
+              <v-timeline>
+                <v-timeline-item
+                  dot-color="blue-lighten-5"
+                  :icon="mdiVirusOffOutline"
+                  fill-dot
+                >
+                  <v-card class="bg-white text--primary" max-width="500" elevation="4">
+                    <v-card-title class="bg-blue-lighten-5 text--primary text-h4">
+                      Hôpital
+                    </v-card-title>
+                    <v-card-text class="ma-4 text-h5">
+                      Access to information of your hospital.
+                    </v-card-text>
+                    <div class="pa-4 text-center">
+                      <RouterLink to="/protected-page/hospital">
+                        <v-btn
+                          color="warning"
+                          variant="outlined"                      
+                        >
+                          Accéder
+                        </v-btn>
+                      </RouterLink>
+                    </div>
+                  </v-card>
+                </v-timeline-item>
+              </v-timeline>
+            </v-col>
+          </v-row>
         </div>
 
         <div v-else-if="infoUser.role_id == 2">
-
+         
+          <v-card
+            class="mx-auto my-10"
+            width="500"
+            :prepend-icon="mdiAlienOutline"
+                  
+          >
+            <template v-slot:title class="text-center">
+              Bienvenue {{infoUser.name}}
+            </template>
+  
+            <v-card-text class="text-center text-h5">
+              "Ce n’est pas le traitement des symptômes du mal qui rétablit une bonne 
+              santé mais celui de ses racines profondes." 
+            </v-card-text>
+            <v-card-text 
+              class="text-h6 "
+            >
+              <i class="text-success text-center">Dr DONADIEU</i>
+            </v-card-text>
+          </v-card>
+         
+          <v-row>
+            <v-col cols="12" sm="6">
+              <v-timeline>
+                <v-timeline-item
+                  dot-color="blue-lighten-2"
+                  :icon="mdiAccount"
+                  fill-dot
+                >
+                  <v-card 
+                    class="bg-white text--primary"
+                    max-width="500"
+                    elevation="4"
+                  >
+                    <v-card-title class="bg-blue-lighten-2 text--primary text-h4">
+                      Account
+                    </v-card-title>
+                    <v-card-text class="ma-4 text-h5">
+                      Check your account now. You can update it 
+                      The information of your porfil in a simple and fast way.
+                    </v-card-text>
+                    <div class="pa-4 text-center">
+                      <RouterLink to="/protected-page/accounts">
+                        <v-btn
+                          color="warning"
+                          variant="outlined"                    
+                        >
+                          Accéder
+                        </v-btn>
+                      </RouterLink>
+                    </div>
+                  </v-card>
+                </v-timeline-item>
+              </v-timeline>
+            </v-col>
+  
+            <v-col cols="12" sm="6">
+              <v-timeline>
+                <v-timeline-item
+                  dot-color="blue-lighten-3"
+                  :icon="mdiStethoscope"
+                  fill-dot
+                >
+                  <v-card 
+                    class="bg-white text--primary" 
+                    max-width="500"
+                    elevation="4"
+                  >
+                    <v-card-title class="bg-blue-lighten-3 text--primary text-h4">
+                      Carers
+                    </v-card-title>
+                    <v-card-text class="ma-4 text-h5">
+                      Consultez la liste des médecins de votre centre hospitalier. 
+                      Enregistrez et modifiez plus rapidement et simplement 
+                      You can put it on up to date in a simple and fast way.
+                    </v-card-text>
+                    <div class="pa-4 text-center">
+                      <RouterLink to="/protected-page/carers">
+                        <v-btn
+                          color="warning"
+                          variant="outlined"
+                        >
+                          Accéder
+                        </v-btn>
+                      </RouterLink>
+                    </div>
+                  </v-card>
+                </v-timeline-item>
+              </v-timeline>
+            </v-col>
+  
+            <v-col cols="12" sm="6">
+              <v-timeline>
+                <v-timeline-item
+                  dot-color="blue-lighten-4"
+                  :icon="mdiCharity"
+                  fill-dot
+                >
+                  <v-card 
+                    class="bg-white text--primary" 
+                    max-width="500"
+                    elevation="4"
+                  >
+                    <v-card-title class="bg-blue-lighten-4 text--primary text-h4">
+                      Services
+                    </v-card-title>
+                    <v-card-text class="ma-4 text-h5">
+                      Consult now the list of services available in your
+                      center. You can update it quickly and easily.
+                    </v-card-text>
+                    <div class="pa-4 text-center">
+                      <RouterLink to="/protected-page/services">
+                        <v-btn
+                          color="warning"
+                          variant="outlined"                      
+                        >
+                          Accéder
+                        </v-btn>
+                      </RouterLink>
+                    </div>
+                  </v-card>
+                </v-timeline-item>
+              </v-timeline>
+            </v-col>
+  
+            <v-col cols="12" sm="6">
+              <v-timeline>
+                <v-timeline-item
+                  dot-color="blue-lighten-5"
+                  :icon="mdiVirusOffOutline"
+                  fill-dot
+                >
+                  <v-card 
+                    class="bg-white text--primary" 
+                    max-width="500"
+                    elevation="4"
+                  >
+                    <v-card-title class="bg-blue-lighten-5 text--primary text-h4">
+                      Hôpital
+                    </v-card-title>
+                    <v-card-text class="ma-4 text-h5">
+                      Access to information of your hospital.
+                    </v-card-text>
+                    <div class="pa-4 text-center">
+                      <RouterLink to="/protected-page/hospital">
+                        <v-btn
+                          color="warning"
+                          variant="outlined"                      
+                        >
+                          Accéder
+                        </v-btn>
+                      </RouterLink>
+                    </div>
+                  </v-card>
+                </v-timeline-item>
+              </v-timeline>
+            </v-col>
+          </v-row>
         </div>
 
         <div v-else>

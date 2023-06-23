@@ -57,6 +57,16 @@ const router = createRouter({
    
     //Routes concernants les actions sur les patients
     {
+      path: '/protected-page/patients',
+      name: 'patients',
+      component: () => import("../views/PatientList.vue")
+    },
+    {
+      path: '/protected-page/patient/edit/:patientId',
+      name: 'editPatient',
+      component: () => import("../views/EditPatient.vue")
+    },
+    {
       path: '/protected-page/patients/add-patient',
       name: 'addPatient',
       component: () => import("../views/InscriptionPatient.vue")

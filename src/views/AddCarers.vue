@@ -45,7 +45,7 @@ let phoneNumber = ref("+229 ")
 let birth = ref("")
 let sex = ref("Masculin")
 let nationality = ref("")
-// let language  = ref("")
+let language  = ref("")
 let email = ref("")
 let password = ref("Anvb@DEflqg2vh3M")
 

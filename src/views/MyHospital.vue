@@ -32,10 +32,10 @@ function listHospital() {
     const userId = authUser.user.data.id;
 
     axios
-        .get(`http://127.0.0.1:8000/api/hospitals?user_id=${userId}`, config)
+        .get('http://127.0.0.1:8000/api/hospital/'+ userId, config)
         .then(
             (reponse) => {
-                hospital.value = reponse.data.data[0]
+                hospital.value = reponse.data.data
                 console.log(hospital.value.name)
                 if(hospital){
                     //infohospital = hospital;
@@ -108,7 +108,7 @@ function listHospital() {
             </RouterLink>
             <!-- </v-btn> -->
         </v-alert>
-        <div v-else> Bonjour
+        <div v-else>
             <center class="bg-head">
                 <v-card class="text-h4 text-white">
                     BIENVENUE
@@ -118,13 +118,13 @@ function listHospital() {
                 <v-row>
                     <v-col cols="12" sm="6">
                         <v-card
-                            elevation="4"
+                            elevation="5"
                         >
                             <v-card-title class="text-h5">
                                 Nom:
                             </v-card-title>
                             <v-card-text class="text-h6">
-                                {{ hospital.value.name }}
+                                {{ hospital.name }}
                             </v-card-text>
                         </v-card>
                     </v-col>
@@ -134,51 +134,77 @@ function listHospital() {
                             elevation="4"
                         >
                             <v-card-title class="text-h5">
-                            Email:
+                                Email:
                             </v-card-title>
                             <v-card-text class="text-h6">
-                            {{ authUser.user.data.email }}
+                                {{ hospital.email }}
                             </v-card-text>
                         </v-card>
                     </v-col>
 
                     <v-col cols="12" sm="6">
-                    <v-card
-                        elevation="4"
-                    >
-                        <v-card-title class="text-h5">
-                        Numéro de téléphone:
-                        </v-card-title>
-                        <v-card-text class="text-h6">
-                        {{ authUser.user.data.phoneNumber }}
-                        </v-card-text>
-                    </v-card>
+                        <v-card
+                            elevation="4"
+                        >
+                            <v-card-title class="text-h5">
+                                Numéro fix:
+                            </v-card-title>
+                            <v-card-text class="text-h6">
+                                {{ hospital.number_fix }}
+                            </v-card-text>
+                        </v-card>
                     </v-col>
             
                     <v-col cols="12" sm="6">
-                    <v-card
-                        elevation="4"
-                    >
-                        <v-card-title class="text-h5">
-                        Sexe:
-                        </v-card-title>
-                        <v-card-text class="text-h6">
-                        {{ authUser.user.data.sex }}
-                        </v-card-text>
-                    </v-card>
+                        <v-card
+                            elevation="3"
+                        >
+                            <v-card-title class="text-h5">
+                                Numéro mobile:
+                            </v-card-title>
+                            <v-card-text class="text-h6">
+                                {{ hospital.number_mobile }}
+                            </v-card-text>
+                        </v-card>
+                    </v-col>
+
+                    <v-col cols="12" sm="6">
+                        <v-card
+                            elevation="3"
+                        >
+                            <v-card-title class="text-h5">
+                            Numéro d'urgence:
+                            </v-card-title>
+                            <v-card-text class="text-h6">
+                                {{ hospital.number_urgence }}
+                            </v-card-text>
+                        </v-card>
                     </v-col>
             
-                    <v-col cols="12" sm="12">
-                    <v-card 
-                        elevation="4"
-                    >
-                        <v-card-title class="text-h5">
-                        Nationalité:
-                        </v-card-title>
-                        <v-card-text class="text-h6">
-                        {{ authUser.user.data.nationality }}
-                        </v-card-text>
-                    </v-card>
+                    <v-col cols="12" sm="6">
+                        <v-card 
+                            elevation="2"
+                        >
+                            <v-card-title class="text-h5">
+                                Adresse:
+                            </v-card-title>
+                            <v-card-text class="text-h6">
+                                {{ hospital.address }}
+                            </v-card-text>
+                        </v-card>
+                    </v-col>
+
+                    <v-col cols="12" sm="6">
+                        <v-card 
+                            elevation="2"
+                        >
+                            <v-card-title class="text-h5">
+                                Ville:
+                            </v-card-title>
+                            <v-card-text class="text-h6">
+                                {{ hospital.city }}
+                            </v-card-text>
+                        </v-card>
                     </v-col>
                 </v-row>
             </v-container>

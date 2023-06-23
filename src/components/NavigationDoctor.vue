@@ -25,8 +25,15 @@ mdiVirusOffOutline
 
 <template>
   <v-list density="default" nav>
+    <RouterLink to="/protected-page" class="route">
+      <v-list-item :prepend-icon="mdiHome" title="Home" value="home"></v-list-item>
+    </RouterLink>
+
+    <RouterLink to="/protected-page/accounts" class="route">
+      <v-list-item :prepend-icon="mdiAccount" title="My Account" value="account"></v-list-item>
+    </RouterLink>
     
-    <RouterLink to="/protected-page/patients/add-patient" class="route">
+    <RouterLink to="/protected-page/patients" class="route">
       <v-list-item :prepend-icon="mdiVirusOffOutline" title="Patients" value="patients"></v-list-item>
     </RouterLink>
     

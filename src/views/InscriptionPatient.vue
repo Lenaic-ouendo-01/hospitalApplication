@@ -9,7 +9,8 @@ import {
 } from '@mdi/js';
 import axios from 'axios';
 import { ref } from 'vue';
-import { RouterLink, RouterView, useRouter } from 'vue-router'
+import { RouterLink, RouterView } from 'vue-router'
+import { useRouter } from 'vue-router';
 
 const config = {
   headers:{
@@ -20,7 +21,7 @@ let visible = ref(false)
 let email= ref('');
 let rules = ref ({
     required: value => !!value || 'Required.',
-    counter: value => value.length <= 20 || 'Max 20 characters',
+    counter: value => value.length <= 100 || 'Max 100 characters',
     email: value => {
         const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
         return pattern.test(value) || 'Invalid e-mail.'
@@ -33,6 +34,7 @@ let rule = {
 }
 let length= ref(4);
 let onboarding= ref(0);
+let router=useRouter();
 
 function next () {
   this.onboarding = this.onboarding + 1 > this.length
@@ -46,7 +48,7 @@ function prev () {
 };
 
 let name = ref("");
-let number = ref("");
+let number = ref("+229 ");
 let birth = ref("");
 let address = ref("");
 let sex = ref("Masculin")
@@ -59,7 +61,7 @@ let ex_surgery = ref("");
 let vaccine = ref("");
 let hereditary = ref("");
 let insurance = ref("");
-let emergency_contact = ref("");
+let emergency_contact = ref("+229 ");
 let blood_type = ref("");
 let language = ref("");
 let marital_status = ref("");
@@ -79,10 +81,9 @@ let nation= ref(['Afghanistan', 'Albania', 'Algeria', 'Andorra', 'Angola', 'Angu
 let country = ref("")
 
 function createPatient(){
-  let router=useRouter()
     console.log(email.value, password.value)
     axios
-    .post("http://127.0.0.1:8000/api/patient/create",{
+    .post("http://127.0.0.1:8000/api/users/patients",{
       "password": password.value,
       "email": email.value,
       "name": name.value,
@@ -106,7 +107,7 @@ function createPatient(){
     .then(
       (response) =>{
         console.log(response)
-        // router.push({path: '/protected-page'});
+        router.push({path: '/protected-page/patients'});
         
       }
     )
@@ -325,7 +326,7 @@ function createPatient(){
               label="Profession"
               counter
               variant="outlined"
-              maxlength="20"
+              maxlength="100"
             ></v-text-field>
             <v-text-field
               v-model="birth"

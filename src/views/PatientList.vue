@@ -1,11 +1,11 @@
 <script setup>
-import NavigationDrawersHospital from '../components/NavigationDrawersHospital.vue'
+import NavigationDoctor from '../components/NavigationDoctor.vue'
 import LogOut from '../components/LogOut.vue'
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { RouterLink, RouterView } from 'vue-router'
 import { 
-mdiAccountPlus,
+  mdiAccountPlus,
   mdiCarBrakeAlert,
   mdiChevronLeft, 
   mdiMagnify, 
@@ -16,13 +16,13 @@ import { useMeStore } from '../stores/me.store';
 onMounted(()=>{
   authUser.me();
   console.log(authUser.user.data);
-  listDoctor();
+  listPatient();
 })
 
 let drawer= ref(true)
 let rail=ref(true)
 let searchValue = ref('')
-let doctors = ref("")
+let patients = ref("")
 
 const config = {
   headers:{
@@ -32,24 +32,24 @@ const config = {
 
 const authUser = useMeStore();
 
-function listDoctor() {
-  axios
-    .get('http://127.0.0.1:8000/api/users?role=DIRECTOR', config)
-    .then(
-      (reponse) => {
-        doctors.value = reponse.data.data
-        console.log(doctors.value)
-      }
-    )
-    .catch(erreur => console.log(erreur));
+function listPatient() {
+    axios
+  .get('http://127.0.0.1:8000/api/users?role=PATIENT', config)
+  .then(
+    (reponse) => {
+      patients.value = reponse.data.data
+      console.log(patients.value)
+    } 
+  )
+  .catch(erreur => console.log(erreur));
 }
 
 let sup=ref("")
-function deleteDoctor(doctorId) {
-  axios
-    .delete('http://127.0.0.1:8000/api/users/' + doctorId, config)
-    .then(res => console.log(res))
-    .catch(erreur => console.log(erreur));
+function deletePatient(patientId) {
+    axios
+      .delete('http://127.0.0.1:8000/api/users/' + patientId, config)
+      .then(res => console.log(res))
+      .catch(erreur => console.log(erreur));
 }
 
 // function search(){
@@ -92,7 +92,7 @@ function deleteDoctor(doctorId) {
 
         <v-divider></v-divider>
 
-        <NavigationDrawersHospital></NavigationDrawersHospital>
+        <NavigationDoctor></NavigationDoctor>
         
         <template v-slot:append>
           <LogOut></LogOut>
@@ -108,7 +108,7 @@ function deleteDoctor(doctorId) {
             v-model="searchValue" 
             @keyup.enter="search"
           ></v-text-field>
-          <button @click="listDoctor" v-show="searchValue.trim().length > 0" id="but">Réinitialiser</button>
+          <button @click="listPatient" v-show="searchValue.trim().length > 0" id="but">Réinitialiser</button>
         </div>
         <v-table
           fixed-header
@@ -150,7 +150,7 @@ function deleteDoctor(doctorId) {
                 :prepend-icon="mdiAccountPlus"
                 @click="createService"
               >
-                <RouterLink to="/protected-page/carers/add-carer" class="route">
+                <RouterLink to="/protected-page/patients/add-patient" class="route">
                   Ajouter 
                 </RouterLink>
               </v-btn>
@@ -158,27 +158,22 @@ function deleteDoctor(doctorId) {
           </thead>
           <tbody>
             <tr
-              v-for="(doctor, index) in doctors"
+              v-for="(patient, index) in patients"
               :key="index"
             >
-              <td>{{ doctor.name }}</td>
-              <td>{{ doctor.email }}</td>
-              <td>{{ doctor.phoneNumber }}</td>
-              <td>{{ doctor.sex }}</td>
-              <!-- <td>{{ doctor.language }}</td> -->
-              <td>{{ doctor.nationality }}</td>
-              <!-- <td>{{ doctor.birth }}</td> -->
-              <RouterLink :to="{name: 'editCarer', params:{doctorId: doctor.id}}">
+              <td>{{ patient.name }}</td>
+              <td>{{ patient.email }}</td>
+              <td>{{ patient.phoneNumber }}</td>
+              <td>{{ patient.sex }}</td>
+              <!-- <td>{{ patient.language }}</td> -->
+              <td>{{ patient.nationality }}</td>
+              <!-- <td>{{ patient.birth }}</td> -->
+              <RouterLink :to="{name: 'editPatient', params:{patientId: patient.id}}">
                 <td>
                   <v-btn class="bg-primary">Modifier</v-btn>
                 </td>
               </RouterLink>
 
-              <!-- <RouterLink :to="{name: 'editCarer', params:{doctorId: doctor.id}}">
-                <td>
-                  <v-btn class="bg-primary">Associer service</v-btn>
-                </td>
-              </RouterLink> -->
               <!-- <td>
                 <v-btn 
                   class="bg-red" 
@@ -188,7 +183,7 @@ function deleteDoctor(doctorId) {
                   v-model="dialog"
                   >
                   <div class="text-h4 pb-2" :prepend-icon="mdiCarBrakeAlert">Attention</div>
-                  <p>Souhaitez-vous vraiment supprimer ce médecin ?</p>
+                  <p>Souhaitez-vous vraiment supprimer ce Patient ?</p>
                   
                   <template v-slot:actions>
                     
@@ -196,7 +191,7 @@ function deleteDoctor(doctorId) {
                       class="text-danger"
                       color="black.0"
                       variant="text"
-                      @click="deleteDoctor(doctor.id), dialog = false"
+                      @click="deletePatient(doctor.id), dialog = false"
                     >
                       Oui
                     </v-btn>
