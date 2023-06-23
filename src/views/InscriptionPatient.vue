@@ -332,6 +332,7 @@ function createPatient(){
               v-model="birth"
               color="blue-grey-lighten-2"
               label="Day of birth"
+              format="yy-mm-dd"
               placeholder="dd/mm/yyyy"
               variant="outlined"
             ></v-text-field>
